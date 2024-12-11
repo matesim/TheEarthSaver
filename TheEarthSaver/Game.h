@@ -6,6 +6,8 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 
+#include <iostream>
+
 /*
 	Zastřešující classa
 */
@@ -18,9 +20,19 @@ private:
 	sf::RenderWindow* window;
 	sf::VideoMode videoMode;
 	sf::Event ev;
+		
+		//Background
+	sf::Texture backGroundTex;
+	sf::Sprite backGroundIMG;
+
+		//Player
+	sf::Texture playerTex;
+	sf::Sprite playerIMG;
 
 	void initVariables();
 	void initWindow();
+	void initBackground();
+	void initPlayer();
 
 public:
 	Game();
@@ -31,7 +43,12 @@ public:
 
 	//Functions
 	void poolEvents();
+
+	void updetePlayer();
 	void update();
+	
+	void renderPlayer();
+	void renderBackground();
 	void render();
 };
 

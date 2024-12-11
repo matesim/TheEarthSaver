@@ -14,10 +14,28 @@ void Game::initWindow()
 	this->window = new sf::RenderWindow(this->videoMode, "The Eaarth Saver", sf::Style::Titlebar | sf::Style::Close);
 }
 
+void Game::initBackground()
+{
+	if (!this->backGroundTex.loadFromFile("./images/BackGroundImage.png"))
+		std::cout << "ERROR: Could not load BackGroundImage.png" << "\n";
+
+	this->backGroundIMG.setTexture(backGroundTex);
+}
+
+void Game::initPlayer()
+{
+	if (!this->playerTex.loadFromFile("./images/PlayerImage.png"))
+		std::cout << "ERROR: Could not load PlayerImage.png" << "\n";
+
+	this->playerIMG.setTexture(playerTex);
+}
+
 //Constructors Destructors
 Game::Game()
 {
 	this->initVariables();
+	this->initBackground();
+	this->initPlayer();
 	this->initWindow();
 }
 
@@ -50,16 +68,45 @@ void Game::poolEvents()
 	}
 }
 
+void Game::updetePlayer()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		playerIMG.move(-0.1f, 0);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		playerIMG.move(0.1f, 0);
+	}
+}
+
 void Game::update()
 {
 	this->poolEvents();
+
+	this->updetePlayer();
+}
+
+//Renders
+void Game::renderPlayer()
+{
+	this->window->draw(playerIMG);
+}
+
+void Game::renderBackground()
+{
+	this->window->draw(backGroundIMG);
 }
 
 void Game::render()
 {
 	this->window->clear();
 
+	//Vykreslení pozadí
+	this->renderBackground();
+
 	//Vykreslení objektů
+	this->renderPlayer();
 
 	this->window->display();
 }
