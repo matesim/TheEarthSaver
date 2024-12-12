@@ -29,10 +29,16 @@ private:
 	sf::Texture playerTex;
 	sf::Sprite playerIMG;
 
+		//Game objects
+	sf::RectangleShape border;
+	sf::RectangleShape border2;
+	sf::RectangleShape border3;
+
 	void initVariables();
 	void initWindow();
 	void initBackground();
 	void initPlayer();
+	void initBorder();
 
 public:
 	Game();
@@ -47,6 +53,7 @@ public:
 	void updetePlayer();
 	void update();
 	
+	void renderBorder();
 	void renderPlayer();
 	void renderBackground();
 	void render();
