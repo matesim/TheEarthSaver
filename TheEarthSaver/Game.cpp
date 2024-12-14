@@ -4,6 +4,8 @@
 void Game::initVariables()
 {
 	this->window = nullptr;
+
+	this->playerSpeed = 2.5f;
 }
 
 void Game::initWindow()
@@ -13,7 +15,7 @@ void Game::initWindow()
 
 	this->window = new sf::RenderWindow(this->videoMode, "The Eaarth Saver", sf::Style::Titlebar | sf::Style::Close);
 
-	this->window->setFramerateLimit(60);
+	this->window->setFramerateLimit(144);
 }
 
 void Game::initBackground()
@@ -102,20 +104,16 @@ void Game::updetePlayer()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		this->playerIMG.move(-5.f, 0);
-
-		if (this->playerIMG.getGlobalBounds().intersects(border3.getGlobalBounds()))
+		if (!this->playerIMG.getGlobalBounds().intersects(border3.getGlobalBounds()))
 		{
-			this->playerIMG.move(5.f, 0);
+			this->playerIMG.move(-this->playerSpeed, 0);
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		this->playerIMG.move(5.f, 0);
-
-		if (this->playerIMG.getGlobalBounds().intersects(border2.getGlobalBounds()))
+		if (!this->playerIMG.getGlobalBounds().intersects(border2.getGlobalBounds()))
 		{
-			this->playerIMG.move(-5.f, 0);
+			this->playerIMG.move(this->playerSpeed, 0);
 		}
 	}
 }

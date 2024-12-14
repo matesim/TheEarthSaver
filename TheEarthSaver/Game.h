@@ -28,6 +28,7 @@ private:
 		//Player
 	sf::Texture playerTex;
 	sf::Sprite playerIMG;
+	float playerSpeed;
 
 		//Game objects
 	sf::RectangleShape border;
