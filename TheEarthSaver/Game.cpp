@@ -5,7 +5,14 @@ void Game::initVariables()
 {
 	this->window = nullptr;
 
-	this->playerSpeed = 2.5f;
+	this->playerSpeed = 3.5f;
+
+	this->boombSpawnTime = 100;
+	this->boombSpawnTimeUse = this->boombSpawnTime;
+	this->boombSpeed = 2.5f;
+
+	this->health = 5;
+	this->points = 0;
 }
 
 void Game::initWindow()
@@ -23,7 +30,7 @@ void Game::initBackground()
 	if (!this->backGroundTex.loadFromFile("./images/BackGroundImage.png"))
 		std::cout << "ERROR: Could not load BackGroundImage.png" << "\n";
 
-	this->backGroundIMG.setTexture(backGroundTex);
+	this->backGroundIMG.setTexture(this->backGroundTex);
 }
 
 void Game::initPlayer()
@@ -31,7 +38,7 @@ void Game::initPlayer()
 	if (!this->playerTex.loadFromFile("./images/PlayerImage.png"))
 		std::cout << "ERROR: Could not load PlayerImage.png" << "\n";
 
-	this->playerIMG.setTexture(playerTex);
+	this->playerIMG.setTexture(this->playerTex);
 
 	this->playerIMG.setPosition(270.f, 700.f);
 }
@@ -60,6 +67,25 @@ void Game::initBorder()
 	*/
 }
 
+void Game::initBoombs()
+{
+	if (!this->boombTex0.loadFromFile("./images/Boomb0.png"))
+		std::cout << "ERROR: Could not load Boomb0.png" << "\n";
+	this->boombIMG0.setTexture(this->boombTex0);
+
+	if (!this->boombTex1.loadFromFile("./images/Boomb1.png"))
+		std::cout << "ERROR: Could not load Boomb1.png" << "\n";
+	this->boombIMG1.setTexture(this->boombTex1);
+
+	if (!this->boombTex2.loadFromFile("./images/Boomb2.png"))
+		std::cout << "ERROR: Could not load Boomb2.png" << "\n";
+	this->boombIMG2.setTexture(this->boombTex2);
+
+	if (!this->boombTex3.loadFromFile("./images/Boomb3.png"))
+		std::cout << "ERROR: Could not load Boomb3.png" << "\n";
+	this->boombIMG3.setTexture(this->boombTex3);
+}
+
 //Constructors Destructors
 Game::Game()
 {
@@ -67,6 +93,7 @@ Game::Game()
 	this->initBackground();
 	this->initBorder();
 	this->initPlayer();
+	this->initBoombs();
 	this->initWindow();
 }
 
@@ -82,6 +109,34 @@ const bool Game::getWindowIsOpen() const
 }
 
 //Functions
+void Game::spawnBoombs()
+{
+	int type = rand() % 4;
+
+	switch (type)
+	{
+	case 0:
+		this->boombIMG0.setPosition(static_cast<float>(rand() % static_cast<int>(this->window->getSize().x - this->boombTex0.getSize().x)), 0.f);
+		this->boombs.push_back(this->boombIMG0);
+		break;
+
+	case 1:
+		this->boombIMG1.setPosition(static_cast<float>(rand() % static_cast<int>(this->window->getSize().x - this->boombTex1.getSize().x)), 0.f);
+		this->boombs.push_back(this->boombIMG1);
+		break;
+
+	case 2:
+		this->boombIMG2.setPosition(static_cast<float>(rand() % static_cast<int>(this->window->getSize().x - this->boombTex2.getSize().x)), 0.f);
+		this->boombs.push_back(this->boombIMG2);
+		break;
+
+	case 3:
+		this->boombIMG3.setPosition(static_cast<float>(rand() % static_cast<int>(this->window->getSize().x - this->boombTex3.getSize().x)), 0.f);
+		this->boombs.push_back(this->boombIMG3);
+		break;
+	}
+}
+
 void Game::poolEvents()
 {
 	while (this->window->pollEvent(this->ev))
@@ -118,11 +173,50 @@ void Game::updetePlayer()
 	}
 }
 
+void Game::updateBoombs()
+{
+	if (this->boombSpawnTimeUse <= 0)
+	{
+		this->spawnBoombs();
+		this->boombSpawnTimeUse = this->boombSpawnTime;
+	}
+	else
+	{
+		this->boombSpawnTimeUse -= 1;
+	}
+
+	//Check jestli je bomba dopadlá
+	for (int i = 0; i < this->boombs.size(); i++)
+	{
+		this->boombs[i].move(0.f, this->boombSpeed);
+
+		if (this->boombs[i].getPosition().y > this->window->getSize().y)
+		{
+			this->boombs.erase(this->boombs.begin() + i);
+			this->health -= 1;
+			std::cout << "Health: " << this->health << "\n";
+		}
+	}
+
+	for (int i = 0; i < this->boombs.size(); i++)
+	{
+		if (this->playerIMG.getGlobalBounds().intersects(this->boombs[i].getGlobalBounds()))
+		{
+			this->boombs.erase(this->boombs.begin() + i);
+			this->points += 1;
+			std::cout << "Points: " << this->points << "\n";
+
+		}
+
+	}
+}
+
 void Game::update()
 {
 	this->poolEvents();
 
 	this->updetePlayer();
+	this->updateBoombs();
 }
 
 //Renders
@@ -132,6 +226,14 @@ void Game::renderBorder()
 	this->window->draw(border2);
 	this->window->draw(border3);
 
+}
+
+void Game::renderBoombs(sf::RenderTarget& target)
+{
+	for (auto& e : this->boombs)
+	{
+		target.draw(e);
+	}
 }
 
 void Game::renderPlayer()
@@ -154,6 +256,7 @@ void Game::render()
 	this->renderBorder();
 
 	//Vykreslení objektů
+	this->renderBoombs(*this->window);
 	this->renderPlayer();
 
 	this->window->display();

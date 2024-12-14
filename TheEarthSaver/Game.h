@@ -35,11 +35,29 @@ private:
 	sf::RectangleShape border2;
 	sf::RectangleShape border3;
 
+	sf::Texture boombTex0;
+	sf::Texture boombTex1;
+	sf::Texture boombTex2;
+	sf::Texture boombTex3;
+	sf::Sprite boombIMG0;
+	sf::Sprite boombIMG1;
+	sf::Sprite boombIMG2;
+	sf::Sprite boombIMG3;
+	std::vector<sf::Sprite> boombs;
+	float boombSpeed;
+	int boombSpawnTime;
+	int boombSpawnTimeUse;
+
+	//Stats
+	int health;
+	int points;
+
 	void initVariables();
 	void initWindow();
 	void initBackground();
 	void initPlayer();
 	void initBorder();
+	void initBoombs();
 
 public:
 	Game();
@@ -49,14 +67,18 @@ public:
 	const bool getWindowIsOpen() const;
 
 	//Functions
+	void spawnBoombs();
+
 	void poolEvents();
 
 	void updetePlayer();
+	void updateBoombs();
 	void update();
 	
-	void renderBorder();
-	void renderPlayer();
 	void renderBackground();
+	void renderBorder();
+	void renderBoombs(sf::RenderTarget& target);
+	void renderPlayer();
 	void render();
 };
 
