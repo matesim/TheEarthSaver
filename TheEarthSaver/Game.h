@@ -48,9 +48,10 @@ private:
 	int boombSpawnTime;
 	int boombSpawnTimeUse;
 
-	//Stats
+	//Stats + logic
 	int health;
 	int points;
+	bool gameOver;
 
 	void initVariables();
 	void initWindow();
@@ -65,6 +66,7 @@ public:
 
 	//Accessors
 	const bool getWindowIsOpen() const;
+	const bool gameEnd() const;
 
 	//Functions
 	void spawnBoombs();

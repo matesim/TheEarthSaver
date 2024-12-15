@@ -5,6 +5,8 @@ void Game::initVariables()
 {
 	this->window = nullptr;
 
+	this->gameOver = false;
+
 	this->playerSpeed = 3.5f;
 
 	this->boombSpawnTime = 100;
@@ -106,6 +108,11 @@ Game::~Game()
 const bool Game::getWindowIsOpen() const
 {
 	return this->window->isOpen();
+}
+
+const bool Game::gameEnd() const
+{
+	return this->gameOver;
 }
 
 //Functions
@@ -215,8 +222,14 @@ void Game::update()
 {
 	this->poolEvents();
 
-	this->updetePlayer();
-	this->updateBoombs();
+	if (this->gameOver == false)
+	{
+		this->updetePlayer();
+		this->updateBoombs();
+	}	
+
+	if (this->health <= 0)
+		this->gameOver = true;
 }
 
 //Renders

@@ -4,8 +4,8 @@
 int main()
 {
 	Game game;
-
-	while (game.getWindowIsOpen())
+	
+	while (game.getWindowIsOpen() && !game.gameEnd())
 	{
 		//Update
 		game.update();
