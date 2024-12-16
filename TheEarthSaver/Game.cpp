@@ -102,6 +102,25 @@ void Game::initText()
 	this->uiText.setString("NONE");
 }
 
+void Game::initHearts()
+{
+	int pos = 600.f;
+	if (!this->heartTex.loadFromFile("./images/Heart.png"))
+		std::cout << "ERROR: Could not load Heart.png" << "\n";
+
+	this->heartIMG.setTexture(this->heartTex);
+
+	for (int i = 0; i < this->health; i++)
+	{
+		this->heartIMG.setPosition(pos - this->heartTex.getSize().x, 0.f);
+
+		pos -= this->heartTex.getSize().x;
+
+		this->hearts.push_back(this->heartIMG);
+	}
+
+}
+
 //Constructors Destructors
 Game::Game()
 {
@@ -112,6 +131,7 @@ Game::Game()
 	this->initBoombs();
 	this->initFonts();
 	this->initText();
+	this->initHearts();
 	this->initWindow();
 }
 
@@ -219,10 +239,7 @@ void Game::updateBoombs()
 			this->health -= 1;
 			std::cout << "Health: " << this->health << "\n";
 		}
-	}
 
-	for (int i = 0; i < this->boombs.size(); i++)
-	{
 		if (this->playerIMG.getGlobalBounds().intersects(this->boombs[i].getGlobalBounds()))
 		{
 			this->boombs.erase(this->boombs.begin() + i);
@@ -230,7 +247,6 @@ void Game::updateBoombs()
 			std::cout << "Points: " << this->points << "\n";
 
 		}
-
 	}
 }
 
@@ -243,6 +259,16 @@ void Game::updateText()
 	this->uiText.setString(ss.str());
 }
 
+void Game::updateHears()
+{
+	int healthUse = this->health;
+
+	if (this->hearts.size() > healthUse)
+	{
+		this->hearts.erase(this->hearts.begin() + healthUse);
+	}
+}
+
 void Game::update()
 {
 	this->poolEvents();
@@ -252,6 +278,7 @@ void Game::update()
 		this->updetePlayer();
 		this->updateBoombs();
 		this->updateText();
+		this->updateHears();
 	}	
 
 	if (this->health <= 0)
@@ -285,6 +312,14 @@ void Game::renderText(sf::RenderTarget& target)
 	target.draw(this->uiText);
 }
 
+void Game::renderHearts(sf::RenderTarget& target)
+{
+	for (auto& e : this->hearts)
+	{
+		target.draw(e);
+	}
+}
+
 void Game::renderBackground()
 {
 	this->window->draw(backGroundIMG);
@@ -303,6 +338,7 @@ void Game::render()
 	this->renderBoombs(*this->window);
 	this->renderPlayer();
 	this->renderText(*this->window);
+	this->renderHearts(*this->window);
 
 	this->window->display();
 }

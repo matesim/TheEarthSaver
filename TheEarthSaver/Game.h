@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 /*
 	Zastřešující classa
@@ -49,6 +50,10 @@ private:
 	int boombSpawnTime;
 	int boombSpawnTimeUse;
 
+	sf::Texture heartTex;
+	sf::Sprite heartIMG;
+	std::vector<sf::Sprite> hearts;
+
 		//Fonts
 	sf::Font font;
 	sf::Text uiText;
@@ -66,6 +71,7 @@ private:
 	void initBoombs();
 	void initFonts();
 	void initText();
+	void initHearts();
 
 public:
 	Game();
@@ -83,6 +89,7 @@ public:
 	void updetePlayer();
 	void updateBoombs();
 	void updateText();
+	void updateHears();
 	void update();
 	
 	void renderBackground();
@@ -90,6 +97,7 @@ public:
 	void renderBoombs(sf::RenderTarget& target);
 	void renderPlayer();
 	void renderText(sf::RenderTarget& target);
+	void renderHearts(sf::RenderTarget& target);
 	void render();
 };
 
