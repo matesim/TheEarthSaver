@@ -7,6 +7,7 @@
 #include <SFML/Network.hpp>
 
 #include <iostream>
+#include <sstream>
 
 /*
 	Zastřešující classa
@@ -48,6 +49,10 @@ private:
 	int boombSpawnTime;
 	int boombSpawnTimeUse;
 
+		//Fonts
+	sf::Font font;
+	sf::Text uiText;
+
 	//Stats + logic
 	int health;
 	int points;
@@ -59,6 +64,8 @@ private:
 	void initPlayer();
 	void initBorder();
 	void initBoombs();
+	void initFonts();
+	void initText();
 
 public:
 	Game();
@@ -75,12 +82,14 @@ public:
 
 	void updetePlayer();
 	void updateBoombs();
+	void updateText();
 	void update();
 	
 	void renderBackground();
 	void renderBorder();
 	void renderBoombs(sf::RenderTarget& target);
 	void renderPlayer();
+	void renderText(sf::RenderTarget& target);
 	void render();
 };
 

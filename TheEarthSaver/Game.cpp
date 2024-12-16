@@ -88,6 +88,20 @@ void Game::initBoombs()
 	this->boombIMG3.setTexture(this->boombTex3);
 }
 
+void Game::initFonts()
+{
+	if (!this->font.loadFromFile("./fonts/Dosis-VariableFont_wght.ttf"))
+		std::cout << "ERROR: Could not load Dosis-VariableFont_wght.ttf" << "\n";
+}
+
+void Game::initText()
+{
+	this->uiText.setFont(this->font);
+	this->uiText.setCharacterSize(24);
+	this->uiText.setFillColor(sf::Color::White);
+	this->uiText.setString("NONE");
+}
+
 //Constructors Destructors
 Game::Game()
 {
@@ -96,6 +110,8 @@ Game::Game()
 	this->initBorder();
 	this->initPlayer();
 	this->initBoombs();
+	this->initFonts();
+	this->initText();
 	this->initWindow();
 }
 
@@ -218,6 +234,15 @@ void Game::updateBoombs()
 	}
 }
 
+void Game::updateText()
+{
+	std::stringstream ss;
+
+	ss << "Points: " << this->points << "\n";
+
+	this->uiText.setString(ss.str());
+}
+
 void Game::update()
 {
 	this->poolEvents();
@@ -226,6 +251,7 @@ void Game::update()
 	{
 		this->updetePlayer();
 		this->updateBoombs();
+		this->updateText();
 	}	
 
 	if (this->health <= 0)
@@ -254,6 +280,11 @@ void Game::renderPlayer()
 	this->window->draw(playerIMG);
 }
 
+void Game::renderText(sf::RenderTarget& target)
+{
+	target.draw(this->uiText);
+}
+
 void Game::renderBackground()
 {
 	this->window->draw(backGroundIMG);
@@ -271,6 +302,7 @@ void Game::render()
 	//Vykreslení objektů
 	this->renderBoombs(*this->window);
 	this->renderPlayer();
+	this->renderText(*this->window);
 
 	this->window->display();
 }
