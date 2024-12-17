@@ -7,7 +7,7 @@ void Game::initVariables()
 
 	this->gameOver = false;
 
-	this->playerSpeed = 3.5f;
+	this->playerSpeed = 3.9f;
 
 	this->boombSpawnTime = 100;
 	this->boombSpawnTimeUse = this->boombSpawnTime;
@@ -98,13 +98,13 @@ void Game::initText()
 {
 	this->uiText.setFont(this->font);
 	this->uiText.setCharacterSize(24);
-	this->uiText.setFillColor(sf::Color::White);
+	this->uiText.setFillColor(sf::Color::Black);
 	this->uiText.setString("NONE");
 }
 
 void Game::initHearts()
 {
-	int pos = 600.f;
+	float pos = 600.f;
 	if (!this->heartTex.loadFromFile("./images/Heart.png"))
 		std::cout << "ERROR: Could not load Heart.png" << "\n";
 
