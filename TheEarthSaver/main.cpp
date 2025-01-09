@@ -1,10 +1,11 @@
-#include <iostream>
+﻿#include <iostream>
 #include "Game.h"
 
 int main()
 {
 	Game game;
 	
+
 	while (game.getWindowIsOpen() && !game.gameEnd())
 	{
 		//Update
@@ -13,4 +14,6 @@ int main()
 		//Render
 		game.render();
 	}
+	//konec-zavření
+	return 0;
 }

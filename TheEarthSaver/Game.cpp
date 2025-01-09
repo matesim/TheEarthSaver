@@ -1,5 +1,6 @@
 ﻿#include "Game.h"
 
+
 //Private functions
 void Game::initVariables()
 {
@@ -7,7 +8,10 @@ void Game::initVariables()
 
 	this->gameOver = false;
 
-	this->playerSpeed = 3.9f;
+	this->gamePaused = false;
+	this->alreadyPaused = 0;
+
+	this->playerSpeed = 3.5f;
 
 	this->boombSpawnTime = 100;
 	this->boombSpawnTimeUse = this->boombSpawnTime;
@@ -151,6 +155,11 @@ const bool Game::gameEnd() const
 	return this->gameOver;
 }
 
+const bool Game::gamePause() const
+{
+	return this->gamePaused;
+}
+
 //Functions
 void Game::spawnBoombs()
 {
@@ -180,7 +189,7 @@ void Game::spawnBoombs()
 	}
 }
 
-void Game::poolEvents()
+void Game::pollEvents()
 {
 	while (this->window->pollEvent(this->ev))
 	{
@@ -192,6 +201,20 @@ void Game::poolEvents()
 		case sf::Event::KeyPressed:
 			if (this->ev.key.code == sf::Keyboard::Escape)
 				this->window->close();
+
+			if (this->ev.key.code == sf::Keyboard::P)
+			{
+				if (this->alreadyPaused == 0)
+				{
+					this->gamePaused = true;
+					this->alreadyPaused += 1;
+				}
+				else
+				{
+					this->gamePaused = false;
+					this->alreadyPaused = 0;
+				}
+			}
 			break;
 		}
 	}
@@ -271,9 +294,9 @@ void Game::updateHears()
 
 void Game::update()
 {
-	this->poolEvents();
+	this->pollEvents();
 
-	if (this->gameOver == false)
+	if (this->gameOver == false && this->gamePaused == false)
 	{
 		this->updetePlayer();
 		this->updateBoombs();
@@ -282,7 +305,9 @@ void Game::update()
 	}	
 
 	if (this->health <= 0)
+	{
 		this->gameOver = true;
+	}
 }
 
 //Renders

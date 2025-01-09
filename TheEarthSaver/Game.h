@@ -61,6 +61,8 @@ private:
 	//Stats + logic
 	int health;
 	int points;
+	int alreadyPaused;
+	bool gamePaused;
 	bool gameOver;
 
 	void initVariables();
@@ -79,12 +81,13 @@ public:
 
 	//Accessors
 	const bool getWindowIsOpen() const;
+	const bool gamePause() const;
 	const bool gameEnd() const;
 
 	//Functions
 	void spawnBoombs();
 
-	void poolEvents();
+	void pollEvents();
 
 	void updetePlayer();
 	void updateBoombs();
