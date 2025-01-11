@@ -317,15 +317,12 @@ void Game::updateBoombs()
 		{
 			this->boombs.erase(this->boombs.begin() + i);
 			this->health -= 1;
-			std::cout << "Health: " << this->health << "\n";
 		}
 
 		if (this->playerIMG.getGlobalBounds().intersects(this->boombs[i].getGlobalBounds()))
 		{
 			this->boombs.erase(this->boombs.begin() + i);
 			this->points += 1;
-			std::cout << "Points: " << this->points << "\n";
-
 		}
 	}
 }
