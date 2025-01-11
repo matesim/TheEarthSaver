@@ -50,6 +50,9 @@ private:
 	int boombSpawnTime;
 	int boombSpawnTimeUse;
 
+	sf::Texture pauseTex;
+	sf::Sprite pauseIMG;
+
 	sf::Texture heartTex;
 	sf::Sprite heartIMG;
 	std::vector<sf::Sprite> hearts;
@@ -74,6 +77,7 @@ private:
 	void initFonts();
 	void initText();
 	void initHearts();
+	void initPause();
 
 public:
 	Game();
@@ -101,6 +105,8 @@ public:
 	void renderPlayer();
 	void renderText(sf::RenderTarget& target);
 	void renderHearts(sf::RenderTarget& target);
+	void renderPause();
+
 	void render();
 };
 

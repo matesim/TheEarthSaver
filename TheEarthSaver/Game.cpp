@@ -125,6 +125,14 @@ void Game::initHearts()
 
 }
 
+void Game::initPause()
+{
+	if (!this->pauseTex.loadFromFile("./images/Pause.png"))
+		std::cout << "ERROR: Could not load Pause.png" << "\n";
+
+	this->pauseIMG.setTexture(this->pauseTex);
+}
+
 //Constructors Destructors
 Game::Game()
 {
@@ -136,6 +144,7 @@ Game::Game()
 	this->initFonts();
 	this->initText();
 	this->initHearts();
+	this->initPause();
 	this->initWindow();
 }
 
@@ -345,9 +354,14 @@ void Game::renderHearts(sf::RenderTarget& target)
 	}
 }
 
+void Game::renderPause()
+{
+	this->window->draw(this->pauseIMG);
+}
+
 void Game::renderBackground()
 {
-	this->window->draw(backGroundIMG);
+	this->window->draw(this->backGroundIMG);
 }
 
 void Game::render()
@@ -364,6 +378,9 @@ void Game::render()
 	this->renderPlayer();
 	this->renderText(*this->window);
 	this->renderHearts(*this->window);
+
+	if (this->gamePaused)
+		this->renderPause();
 
 	this->window->display();
 }
