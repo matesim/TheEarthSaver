@@ -8,6 +8,8 @@ void Game::initVariables()
 
 	this->gameOver = false;
 
+	this->gameToEnd = false;
+
 	this->gamePaused = false;
 	this->alreadyPaused = 0;
 
@@ -133,6 +135,34 @@ void Game::initPause()
 	this->pauseIMG.setTexture(this->pauseTex);
 }
 
+void Game::initEndScreen()
+{
+	if (!this->endTex.loadFromFile("./images/End.png"))
+		std::cout << "ERROR: Could not load End.png" << "\n";
+
+	this->endIMG.setTexture(this->endTex);
+}
+
+void Game::initMaxScore()
+{
+	this->maxScore.setPosition(10.f, 300.f);
+	this->maxScore.setFont(this->font);
+	this->maxScore.setCharacterSize(80);
+	this->maxScore.setFillColor(sf::Color::Black);
+	this->maxScore.setStyle(sf::Text::Bold);
+	this->maxScore.setString("NONE");
+}
+
+void Game::initEndButton()
+{
+	if (!this->endButtonTex.loadFromFile("./images/EndButton.png"))
+		std::cout << "ERROR: Could not load EndButton.png" << "\n";
+
+	this->endButtonIMG.setTexture(this->endButtonTex);
+
+	this->endButtonIMG.setPosition(380.f, 680.f);
+}
+
 //Constructors Destructors
 Game::Game()
 {
@@ -145,6 +175,9 @@ Game::Game()
 	this->initText();
 	this->initHearts();
 	this->initPause();
+	this->initEndScreen();
+	this->initMaxScore();
+	this->initEndButton();
 	this->initWindow();
 }
 
@@ -209,7 +242,7 @@ void Game::pollEvents()
 			break;
 		case sf::Event::KeyPressed:
 			if (this->ev.key.code == sf::Keyboard::Escape)
-				this->window->close();
+				this->gameToEnd = true;
 
 			if (this->ev.key.code == sf::Keyboard::P)
 			{
@@ -225,6 +258,21 @@ void Game::pollEvents()
 				}
 			}
 			break;
+		}
+	}
+}
+
+void Game::checkIfButtonPressed()
+{
+	this->mousePosWindow = sf::Mouse::getPosition(*this->window);
+	this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindow);
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		if (this->endButtonIMG.getGlobalBounds().contains(this->mousePosView))
+		{
+			this->gameOver = true;
+			this->window->close();
 		}
 	}
 }
@@ -285,10 +333,13 @@ void Game::updateBoombs()
 void Game::updateText()
 {
 	std::stringstream ss;
+	std::stringstream endString;
 
 	ss << "Points: " << this->points << "\n";
+	endString << "Tvé skóre: " << this->points << "\n";
 
 	this->uiText.setString(ss.str());
+	this->maxScore.setString(endString.str());
 }
 
 void Game::updateHears()
@@ -296,16 +347,14 @@ void Game::updateHears()
 	int healthUse = this->health;
 
 	if (this->hearts.size() > healthUse)
-	{
 		this->hearts.erase(this->hearts.begin() + healthUse);
-	}
 }
 
 void Game::update()
 {
 	this->pollEvents();
 
-	if (this->gameOver == false && this->gamePaused == false)
+	if (this->gameOver == false && this->gamePaused == false && !this->gameToEnd)
 	{
 		this->updetePlayer();
 		this->updateBoombs();
@@ -314,10 +363,12 @@ void Game::update()
 	}	
 
 	if (this->health <= 0)
-	{
-		this->gameOver = true;
-	}
+		this->gameToEnd = true;
+
+	if (this->gameToEnd)
+		this->checkIfButtonPressed();
 }
+
 
 //Renders
 void Game::renderBorder()
@@ -359,6 +410,13 @@ void Game::renderPause()
 	this->window->draw(this->pauseIMG);
 }
 
+void Game::renderEnd(sf::RenderTarget& target)
+{
+	target.draw(this->endIMG);
+	target.draw(this->maxScore);
+	target.draw(this->endButtonIMG);
+}
+
 void Game::renderBackground()
 {
 	this->window->draw(this->backGroundIMG);
@@ -381,6 +439,9 @@ void Game::render()
 
 	if (this->gamePaused)
 		this->renderPause();
+
+	if (this->gameToEnd)
+		this->renderEnd(*this->window);
 
 	this->window->display();
 }

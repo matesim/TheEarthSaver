@@ -22,6 +22,9 @@ private:
 	sf::RenderWindow* window;
 	sf::VideoMode videoMode;
 	sf::Event ev;
+
+	sf::Vector2i mousePosWindow;
+	sf::Vector2f mousePosView;
 		
 		//Background
 	sf::Texture backGroundTex;
@@ -50,16 +53,23 @@ private:
 	int boombSpawnTime;
 	int boombSpawnTimeUse;
 
-	sf::Texture pauseTex;
-	sf::Sprite pauseIMG;
-
 	sf::Texture heartTex;
 	sf::Sprite heartIMG;
 	std::vector<sf::Sprite> hearts;
 
+	sf::Texture pauseTex;
+	sf::Sprite pauseIMG;
+
+	sf::Texture endTex;
+	sf::Sprite endIMG;
+
+	sf::Texture endButtonTex;
+	sf::Sprite endButtonIMG;
+
 		//Fonts
 	sf::Font font;
 	sf::Text uiText;
+	sf::Text maxScore;
 
 	//Stats + logic
 	int health;
@@ -67,6 +77,7 @@ private:
 	int alreadyPaused;
 	bool gamePaused;
 	bool gameOver;
+	bool gameToEnd;
 
 	void initVariables();
 	void initWindow();
@@ -78,6 +89,9 @@ private:
 	void initText();
 	void initHearts();
 	void initPause();
+	void initEndScreen();
+	void initMaxScore();
+	void initEndButton();
 
 public:
 	Game();
@@ -93,11 +107,14 @@ public:
 
 	void pollEvents();
 
+	void checkIfButtonPressed();
+
 	void updetePlayer();
 	void updateBoombs();
 	void updateText();
 	void updateHears();
 	void update();
+
 	
 	void renderBackground();
 	void renderBorder();
@@ -106,6 +123,8 @@ public:
 	void renderText(sf::RenderTarget& target);
 	void renderHearts(sf::RenderTarget& target);
 	void renderPause();
+
+	void renderEnd(sf::RenderTarget& target);
 
 	void render();
 };
