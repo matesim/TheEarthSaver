@@ -5,7 +5,7 @@ Můj první projekt na programování v C++ s pomocí knihovny SFML. Je to 2D hr
 Hra má zcela jednoduchý cíl a gameplay. Ovládáte nebo jestli chcete hrajete za postavu, která má za úkol chytit co největší počet bomb, aby nestihly spadnout na zem. Bomby se spawnují/objevují na vrchu okna hry, objevují se náhodně, na teoretické ose x, následně padají dolů. Váš cíl je pohnou postavou tak, aby se textura postavy a bomby v jakékoli části střetla, což bombu odstraní a vám přidá skóre. Cíl je primitivní, a to získat co nejvíce bodů, aniž byste umřeli. Maximální počet bomb, co můžou spadnou na zem je 4. S pátou spadlou bombou je hra automaticky ukončena.
 
 ## Update
-Po updatu přibyly další možnosti ovládání, a to pauza a nově ESC již nevypíná hru, ale hodí vás na konečnou obrazovku, kde se vám zobrazí skóre a dá vám to možnost hru vypnou pomocí tlačítka. V [README.md] přibyl odstavec v sekci [Tvorba hry](#Tvorba-hry), nová citace v [Literatura-a čerpání informací](#Literatura-a-čerpání-informací) a upraveno [Ovládání](#Ovládání).
+Po updatu přibyly další možnosti ovládání, a to pauza a nově ESC již nevypíná hru, ale hodí vás na konečnou obrazovku, kde se vám zobrazí skóre a dá vám to možnost hru vypnou pomocí tlačítka. V [README.md](https://github.com/matesim/TheEarthSaver/blob/master/README.md) přibyl odstavec v sekci [Tvorba hry](#Tvorba-hry), nová citace v [Literatura-a čerpání informací](#Literatura-a-čerpání-informací) a upraveno [Ovládání](#Ovládání).
 
 ### Ovládání
 A - pohyb postavy doleva <br/>
