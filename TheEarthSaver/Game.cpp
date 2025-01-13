@@ -124,7 +124,6 @@ void Game::initHearts()
 
 		this->hearts.push_back(this->heartIMG);
 	}
-
 }
 
 void Game::initPause()

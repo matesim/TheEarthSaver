@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TheEarthSaver", "TheEarthSaver\TheEarthSaver.vcxproj", "{CAB18E69-3FB8-4CCA-9E5D-A773369C6225}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{4C7999BE-837C-4C63-AE36-51E9BD5566A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{CAB18E69-3FB8-4CCA-9E5D-A773369C6225}.Release|x64.Build.0 = Release|x64
 		{CAB18E69-3FB8-4CCA-9E5D-A773369C6225}.Release|x86.ActiveCfg = Release|Win32
 		{CAB18E69-3FB8-4CCA-9E5D-A773369C6225}.Release|x86.Build.0 = Release|Win32
+		{4C7999BE-837C-4C63-AE36-51E9BD5566A7}.Debug|x64.ActiveCfg = Debug
+		{4C7999BE-837C-4C63-AE36-51E9BD5566A7}.Debug|x86.ActiveCfg = Debug
+		{4C7999BE-837C-4C63-AE36-51E9BD5566A7}.Release|x64.ActiveCfg = Release
+		{4C7999BE-837C-4C63-AE36-51E9BD5566A7}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
