@@ -16,7 +16,7 @@ ESC - ukončení hry na konečnou obrazovku <br/>
 ## Tvorba hry
 Jelikož jsem neměl žádné dřívější zkušenosti s jakoukoli tvorbou her v programovacím jazyce C++, můj první krok byl zjistit, jak je možné udělat otevírací okno, aby hra nebyla tvořena v konzoli. Našel jsem SFML knihovnu [[5]](#Literatura-a-čerpání-informací) která toto umožňuje. Našel jsem si tutoriál na tuto knihovnu, jak se pomocí ní tvoří hry, je to playlist několika videí [[1]](#Literatura-a-čerpání-informací), kde je vytvářeno více her. Já si vybral tu první [[2]](#Literatura-a-čerpání-informací) na které jsem postavil tento projekt. Celý tento tutoriál jsem zhlédl, postupoval jsem podle něho a vytvořil [kopii této hry](https://github.com/matesim/SimplFirstGame) za účelem prakticky zkusit a použít způsob kódování jak v C++, tak i v SFML knihovně. Hru, kterou jsem udělal pro projekt je zásadně odlišná, ale použil jsem zde základ jeho strukturování. Poté jsem jeho kód používal pro zjištění kam co patří nebo jeho způsoby řešení problémů. Jelikož v tutoriálu nebyly použity celkově textury, které ale já zahrnout chtěl, zhlédl jsem na toto téma video [[4]](#Literatura-a-čerpání-informací) a doplňkové informace jsem hledal na oficiálních stránkách [[7]](#Literatura-a-čerpání-informací). Největší problém jsem měl, když jsem se snažil, aby bylo možné v pozdějším vývoji pozměnit velikosti okna, což jsem následně zjistil že mám špatně posunutý řádek kódu. Rád bych zmínil že mi velmi pomohla dokumentace k texturám [[6]](#Literatura-a-čerpání-informací), kde jsem potřeboval zjistit, jak dostanu na return velikost v pixelech té textury. Ten největší problém byl s mazáním srdíček při dopadnutí bomb na zem (z okna), to se mi podařilo vyřešit pomocí dokumentace ke knihovně vector [[8]](#Literatura-a-čerpání-informací). Textury jsem si tvořil sám proto i tak vypadají tak jak vypadají. Byly vyhotoveny v Paint.NET [[9]](#Literatura-a-čerpání-informací).
 
-Přidal jsem ještě něco před závěrečným dokončením, nic složitého ale i tak mě to donutilo projít znovu část dokumentace a shlédnout video [[11]](#Literatura-a-čerpání-informací) na používání eventů a inputů, jelikož jsem to očividně pozapomněl. Přidal jsem ještě závěrečnou obrazovku, kde je vidět vaše dosažené skóre, protože před tím jste se v závěrečném okamžiku museli podívat na aktuální počet anebo poté vyhledat v konzoli. Proto se již v tuto chvíli hra po "smrti" sama neukončí ale je to na vás. A je přidána možnost ukončit hru i v okamžik co chcete vy, a to zmáčknutím ESC, které vás také dostane na konečnou obrazovku. S tímto přidáním věcí už jsem takový problém neměl jen tedy u části s inputy, kde jsem zapomněl syntaxi. Jinak jsem ve tvoření těchto funkcí neměl problém.
+Přidal jsem ještě něco před závěrečným dokončením, nic složitého ale i tak mě to donutilo projít znovu část dokumentace a shlédnout video [[11]](#Literatura-a-čerpání-informací) na používání eventů a inputů, jelikož jsem to očividně pozapomněl. Přidal jsem ještě závěrečnou obrazovku, kde je vidět vaše dosažené skóre, protože před tím jste se v závěrečném okamžiku museli podívat na aktuální počet anebo poté vyhledat v konzoli. Proto se již v tuto chvíli hra po "smrti" sama neukončí ale je to na vás. A je přidána možnost ukončit hru i v okamžik co chcete vy, a to zmáčknutím ESC, které vás také dostane na konečnou obrazovku. S tímto přidáním věcí už jsem takový problém neměl jen tedy u části s inputy, kde jsem zapomněl syntaxi. Jinak jsem ve tvoření těchto funkcí neměl problém. Poslední věc co dodám je, že obrázky jsou všechny vytvořeny mnou a přidávám i jejich názornou ukázku [níže](#Obrázky-a-ukázky). Děkuji a také budu rád pokud si hru zkusíte, i když to je blbost.
 
 ## Jak si tuto hru zahrát?
 Pro spuštění této hry je potřeba Visual Studio 2022 nebo jiný IDE, který podporuje spouštění C++ kódů. Jelikož je kód tvořen právě ve Visual Studio 2022 [[10]](#Literatura-a-čerpání-informací), tak je jistější, že i zde vám půjde spustit. Pokud nevíte, jak tuto aplikaci stáhnout postup najdete [zde](#Instalace-Visual-Studio-2022). Po úspěšné instalaci je nutné vytvořit nový projekt pomocí naklonování repositáře do aplikace. Přitom budete muset vložit URL adresu tohoto repositáře, kterou získáte na [hlavní stránce TheEarthSaver](https://github.com/matesim/TheEarthSaver), kliknutím na tlačítko code a zkopírování HTTPS adresy. To je vše a kód můžete spustit. Instalace SFML do projektu není nutné!
@@ -46,3 +46,19 @@ Běžte na stránky [Visual Studio 2022](https://visualstudio.microsoft.com/vs/)
 [10] MICROSOFT CORPORATION. Visual Studio 2022. Online. Dostupné z: https://visualstudio.microsoft.com/vs/. [cit. 2024-12-18].
 
 [11] SHAH, Mike. SFML Detecting Mouse events and keyboard key press events: YouTube Video. Online. In: . Dostupné z: https://www.youtube.com/watch?v=UwqAkjGjjCs. [cit. 2025-01-13].
+
+## Obrázky a ukázky
+
+### Postava kterou ovládáte
+![PlayerImage](https://github.com/user-attachments/assets/cdefdabb-0711-4fe0-839c-adea82f61f11)
+
+### Obě dvě pozadí
+![Background](https://github.com/user-attachments/assets/63ddec86-8a19-41b4-9d30-dc448a1d463e)
+
+### Objekty
+![Objects](https://github.com/user-attachments/assets/e41e0ea1-38b9-400e-8892-81eed977e40d)
+
+### Ukázka ze hry
+https://github.com/user-attachments/assets/5efdd814-38d0-4fd4-89d8-8d73bb6a498d
+
+
